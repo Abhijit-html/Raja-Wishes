@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raja Wishes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            margin: 0;
+            /* Add padding to the bottom to prevent content from being hidden by the fixed ad */
+            padding: 20px 20px 80px 20px; /* 80px bottom padding (60px ad height + 20px margin) */
+            background: linear-gradient(135deg, #FFD700, #FF8C00, #FF4500);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            box-sizing: border-box; /* Ensure padding is included in height calculation */
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: inline-block;
+            max-width: 500px;
+            width: 90%;
+            border: 3px solid #FFA500;
+            margin-bottom: 20px; /* Add some margin above the ad if content is very short */
+        }
+        #rajoVideo {
+            max-width: 100%;
+            height: auto;
+            width: 280px; 
+            border: 5px solid #FF6347; 
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            object-fit: cover; 
+        }
+        #greeting {
+            font-family: 'Lobster', cursive;
+            font-size: 2.8em;
+            color: #E50914;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        input[type="text"]#nameInput {
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: 2px solid #FFB347;
+            border-radius: 8px;
+            width: calc(100% - 34px);
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+        button#shareBtn {
+            padding: 12px 20px;
+            background: #25D366;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            width: 100%; 
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        button#shareBtn:hover {
+            background: #1DAE54;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            transform: translateY(-2px);
+        }
+        button#shareBtn svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            fill: white;
+        }
+        #generatedLinkContainer {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff8e1;
+            border-radius: 8px;
+            border: 1px dashed #FFC107;
+        }
+        #generatedLink {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff;
+            border: 1px solid #FFC107;
+            border-radius: 5px;
+            color: #555;
+            box-sizing: border-box;
+            font-size: 0.9em;
+        }
+        #generatedLinkContainer button {
+            padding: 10px 15px;
+            background: linear-gradient(45deg, #FF6B6B, #FF4500);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            margin-top: 5px;
+        }
+        #generatedLinkContainer button:hover {
+            background: linear-gradient(45deg, #FF4500, #FF6B6B);
+            transform: translateY(-1px);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #555;
+            font-size: 1.1em;
+        }
+        .footer-note {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* Ad Container Styling */
+        #ad-container-bottom {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%); /* Center the ad container */
+            width: 468px; /* Width from your ad script */
+            height: 60px;  /* Height from your ad script */
+            z-index: 10000; /* Ensure ad is on top */
+            /* background-color: rgba(200, 200, 200, 0.5); /* Optional: for testing visibility */
+        }
+        /* Media query for smaller screens to make ad responsive if needed, though your ad is fixed width */
+        @media (max-width: 480px) {
+            #ad-container-bottom {
+                width: 100%; /* Make ad container full width on very small screens */
+                /* The ad script might still render 468px, potentially causing overflow.
+                   If the ad network provides responsive ad tags, those are better.
+                   For now, this will center the 468px ad within a 100% width container if the screen is smaller.
+                   Or, the ad script's own iframe might overflow. This depends on the ad provider.
+                */
+            }
+            body {
+                 /* Adjust padding for smaller screens if the ad takes up more relative space */
+                 padding-bottom: 70px; /* e.g. if ad height is effectively 60px */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="greeting">Happy Raja!</h1>
+        <video id="rajoVideo" src="rajo.gif.mp4" autoplay loop muted playsinline>
+            Aapka browser video tag support nahi karta.
+        </video>
+
+        <div>
+            <label for="nameInput">Apna naam likhein aur share karein:</label>
+            <input type="text" id="nameInput" placeholder="Aapka naam yahan">
+            <button id="shareBtn" onclick="generateAndShareViaWhatsApp()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path d="M380.9 97.1C346.6 62.9 300.4 42.3 250.5 42.3c-114.9 0-208.1 93.3-208.1 208.1 0 36.4 9.4 70.5 26.4 100.4l-27.8 101.6 104.3-27.3c29.3 15.9 62.1 24.1 96.4 24.1 114.9 0 208.1-93.3 208.1-208.1 0-50-20.6-96.1-54.8-130.3zM250.5 431.1c-31.3 0-60.9-8.9-86.2-24.8l-6.1-3.6-64.1 16.8 17.1-62.5-4-6.4C91.6 320.3 80 286.8 80 250.5c0-93.3 75.9-169.2 169.2-169.2 45.6 0 88 17.7 119.9 49.6 31.9 31.9 49.6 74.3 49.6 119.9 .1 94.5-75.8 170.4-169.2 170.4zm101.7-123.7c-2.5-4.2-9.3-6.9-13.2-7.2h-10.6c-3.9 0-7.8 1.2-11.1 3.6-3.3 2.4-7.8 7.8-9.6 9.6-1.8 1.8-3.6 2.1-6.6 0-3-2.1-12.6-4.5-23.9-14.7-8.8-7.8-14.7-17.4-17.1-20.4-2.4-3-5.1-4.8-5.1-8.4 0-3.3.9-5.1 2.7-6.9 1.5-1.5 3.3-3.9 5.1-5.7s2.7-2.7 3.9-4.5c1.2-1.8 0-3.6-1.2-5.4s-10.5-25.2-14.4-34.5c-3.9-9.3-7.8-7.8-10.5-7.8h-8.4c-2.7 0-6.9 1.2-10.5 5.4-3.6 4.2-13.5 13.2-13.5 32.1s13.8 37.2 15.6 39.9c1.8 2.7 27.6 44.4 67.2 59.4 9.6 3.6 17.1 5.7 22.5 7.2 8.7 2.7 16.5 2.4 22.5.9 6.6-1.5 20.4-8.4 23.4-16.5s3-15 2.1-16.5z"/>
+                </svg>
+                WhatsApp par Share Karein
+            </button>
+        </div>
+
+        <div id="generatedLinkContainer" style="display:none;">
+            <p>Generated Link:</p>
+            <input type="text" id="generatedLink" readonly onclick="this.select()">
+            <div>
+                <button onclick="copyLink()">Link Copy Karein</button>
+            </div>
+        </div>
+    </div>
+    <p class="footer-note">🎉 Raja Parba ki Hardik Shubhkamnayein! 🎉</p>
+
+    <!-- Ad Container Div -->
+    <div id="ad-container-bottom">
+        <!-- YOUR AD CODE STARTS HERE -->
+        <script type="text/javascript">
+            atOptions = {
+                'key' : 'ee2be4162bc7c64b44efb86b5ad15de1',
+                'format' : 'iframe',
+                'height' : 60,
+                'width' : 468,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/ee2be4162bc7c64b44efb86b5ad15de1/invoke.js"></script>
+        <!-- YOUR AD CODE ENDS HERE -->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script>
+        function triggerFireworks() {
+            var duration = 3 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 }; // Confetti zIndex lower than ad
+            function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) return clearInterval(interval);
+                var particleCount = 50 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const senderName = urlParams.get('sender');
+            const greetingElement = document.getElementById('greeting');
+            if (senderName) {
+                const decodedSenderName = decodeURIComponent(senderName.replace(/\+/g, ' '));
+                greetingElement.textContent = "Happy Raja from " + decodedSenderName + "!";
+            } else {
+                greetingElement.textContent = "Happy Raja!";
+            }
+            triggerFireworks();
+        };
+
+        function generateAndShareViaWhatsApp() {
+            const nameInput = document.getElementById('nameInput');
+            const senderName = nameInput.value.trim();
+
+            if (senderName === "") {
+                alert("Kripya apna naam daalein!");
+                return;
+            }
+
+            const encodedSenderName = encodeURIComponent(senderName);
+            const baseUrl = window.location.origin + window.location.pathname;
+            const newUrl = baseUrl + "?sender=" + encodedSenderName;
+
+            const generatedLinkInput = document.getElementById('generatedLink');
+            generatedLinkInput.value = newUrl;
+            document.getElementById('generatedLinkContainer').style.display = 'block';
+            
+            const shareMessage = senderName + ' ki taraf se Raja Parba ki shubhkamnayein! 🎉 Dekhein: ';
+            const shareTitle = 'Happy Raja Wishes!';
+
+            if (navigator.share) {
+                navigator.share({
+                    title: shareTitle,
+                    text: shareMessage, 
+                    url: newUrl, 
+                })
+                .then(() => console.log('Link shared successfully via Web Share API!'))
+                .catch((error) => {
+                    console.log('Error sharing via Web Share API or user cancelled:', error);
+                    const whatsappUrl = 'whatsapp://send?text=' + encodeURIComponent(shareMessage + newUrl);
+                    window.open(whatsappUrl, '_blank');
+                });
+            } else {
+                const whatsappUrl = 'whatsapp://send?text=' + encodeURIComponent(shareMessage + newUrl);
+                if (!/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase())) {
+                    alert("Aapka browser automatic sharing support nahi karta. Agar WhatsApp Desktop installed hai to woh khulne ki koshish karega. Warna, kripya neeche diye gaye link ko copy karke share karein.");
+                }
+                window.open(whatsappUrl, '_blank');
+            }
+        }
+
+        function copyLink() {
+            const linkInput = document.getElementById('generatedLink');
+            linkInput.select();
+            linkInput.setSelectionRange(0, 99999);
+            try {
+                document.execCommand('copy');
+                alert("Link copy ho gaya: " + linkInput.value);
+            } catch (err)
+                {
+                alert("Copy karne mein samasya! Kripya manually copy karein.");
+            }
+        }
+    </script>
+</body>
+</html>
